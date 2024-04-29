@@ -1,18 +1,23 @@
 import speech_recognition as sr
 
-    # Initialize the recognizer class
-r = sr.Recognizer()
 
-    # Read from the microphone as the source
-with sr.Microphone() as source:
-    print("Talk")
-    audio_text = r.listen(source)
-    print("Time over, thanks")
+def main():
+    r=sr.Recognizer()
 
+    with sr.Microphone() as source:
+        r.adjust_for_ambient_noise(source)
 
-try:
-        # Use Google speech recognition
-    print("Text:", r.recognize_google(audio_text))
-except:
-    print("Sorry, I did not get that")
+        print("please say something...")
+        
+        audio=r.listen(source)
+
+        try:
+            print("you have said:\n"+r.recognize_google(audio))
+
+        except Exception as e:
+            print("Error : " + str(e))
+
+if __name__ == "__main__":
+    main()
+
     
